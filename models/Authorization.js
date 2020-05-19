@@ -2,32 +2,32 @@ const { Model } = require("objection");
 
 class Authorization extends Model {
   static get tableName() {
-      return 'authorization';
+    return "authorization";
   }
 
-  static get idColumn(){
-    return['driverid', 'vehicleid'];
+  static get idColumn() {
+    return ["driverId", "vehicleId"];
   }
 
   static get relationMappings() {
     return {
-        driver: {
-            relation: Model.BelongsToOneRelation,
-            modelClass: __dirname + "/Driver",
-            join: {
-                from: 'authorizations.id',
-                to: 'driver.id',
-            }
+      driver: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: __dirname + "/Driver",
+        join: {
+          from: "authorizations.id",
+          to: "driver.id",
         },
-        vehicle:{
-            relation: Model.BelongsToOneRelation,
-            modelClass: __dirname + "/Vehicle",
-            join: {
-                from: 'authorizations.vehicleid',
-                to: 'vehicle.id'
-            }
-        }
-    }
+      },
+      vehicle: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: __dirname + "/Vehicle",
+        join: {
+          from: "authorizations.vehicleId",
+          to: "vehicle.id",
+        },
+      },
+    };
   }
 }
 

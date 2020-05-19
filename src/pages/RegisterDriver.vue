@@ -47,7 +47,9 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="primary" text v-on:click="hideDialog">Okay</v-btn>
+                      <v-btn color="primary" text v-on:click="hideDialog"
+                        >Okay</v-btn
+                      >
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -65,11 +67,11 @@ import Instructions from "../components/Instructions.vue";
 export default {
   name: "RegisterDriver",
   components: {
-    Instructions, 
+    Instructions,
   },
-  data: function () {
+  data: function() {
     return {
-      valid: false, 
+      valid: false,
       newDriver: {
         firstName: "",
         lastName: "",
@@ -83,46 +85,44 @@ export default {
 
       rules: {
         req: [(val) => val.length > 0 || "Required"],
-        int: [
-            (val) => /[0-9]+$/.test(val) || "Numbers Only",
-        ],
+        int: [(val) => /[0-9]+$/.test(val) || "Numbers Only"],
       },
     };
   },
   methods: {
-    registerDriver: function () {
+    registerDriver: function() {
       this.driverCreated = false;
 
-      this.$axios.post("/driver", {
+      this.$axios
+        .post("/driver", {
           firstName: this.newDriver.firstName,
           lastName: this.newDriver.lastName,
           phone: this.newDriver.phone,
           licenseNumber: this.newDriver.licenseNumber,
-      })
-      .then((result) => {
-        if (result.data.ok) {
-          this.showDialog("Success", result.data.msge);
-          this.accountCreated = true;
-        } else {
-          this.showDialog("Sorry", result.data.msge);
-        }
-      })
-      .catch((err) => this.showDialog("Failed", err));
+        })
+        .then((result) => {
+          if (result.data.ok) {
+            this.showDialog("Successful", result.data.msge);
+            this.accountCreated = true;
+          } else {
+            this.showDialog("Unsuccessful", result.data.msge);
+          }
+        })
+        .catch((err) => this.showDialog("Error", err));
     },
 
-    showDialog: function (header, text) {
+    showDialog: function(header, text) {
       this.dialogHeader = header;
       this.dialogText = text;
       this.dialogVisible = true;
     },
 
-    hideDialog: function () {
+    hideDialog: function() {
       this.dialogVisible = false;
       if (this.accountCreated) {
         this.$router.push({ name: "home" });
       }
-    }
+    },
   },
 };
-
 </script>

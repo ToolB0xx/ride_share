@@ -16,9 +16,17 @@ export default new Router({
   routes: [
     { name: "home", path: "/", component: Home },
     { name: "register-ride", path: "/register-ride", component: RegisterRide },
-    { name: "register-driver", path: "/register-driver", component: RegisterDriver },
+    {
+      name: "register-driver",
+      path: "/register-driver",
+      component: RegisterDriver,
+    },
     { name: "authorize", path: "/authorize", component: Authorize },
     { name: "rides", path: "/rides", component: Rides },
-    { name: "register-vehicle", path: "/register-vehicle", component: RegisterVehicle }
-  ]
+    {
+      name: "register-vehicle",
+      path: "/register-vehicle",
+      component: RegisterVehicle,
+    },
+  ],
 });

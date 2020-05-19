@@ -66,7 +66,9 @@
                     <v-divider></v-divider>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="primary" text v-on:click="hideDialog">Okay</v-btn>
+                      <v-btn color="primary" text v-on:click="hideDialog"
+                        >Okay</v-btn
+                      >
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -84,11 +86,11 @@ import Instructions from "../components/Instructions.vue";
 export default {
   name: "RegisterVehicle",
   components: {
-    Instructions, 
+    Instructions,
   },
-  data: function () {
+  data: function() {
     return {
-      valid: false, 
+      valid: false,
       newVehicle: {
         make: "",
         model: "",
@@ -105,17 +107,16 @@ export default {
 
       rules: {
         req: [(val) => val.length > 0 || "Required"],
-        int: [
-            (val) => /[0-9]+$/.test(val) || "Numerical Only",
-        ],
+        int: [(val) => /[0-9]+$/.test(val) || "Numerical Only"],
       },
     };
   },
   methods: {
-    registerVehicle: function () {
+    registerVehicle: function() {
       this.vehicleCreated = false;
 
-      this.$axios.post("/vehicle", {
+      this.$axios
+        .post("/vehicle", {
           make: this.newVehicle.make,
           model: this.newVehicle.model,
           color: this.newVehicle.color,
@@ -123,31 +124,30 @@ export default {
           mpg: this.newVehicle.mpg,
           licenseState: this.newVehicle.licenseState,
           licenseNumber: this.newVehicle.licenseNumber,
-      })
-      .then((result) => {
-        if (result.data.ok) {
-          this.showDialog("Success", result.data.msge);
-          this.accountCreated = true;
-        } else {
-          this.showDialog("Sorry", result.data.msge);
-        }
-      })
-      .catch((err) => this.showDialog("Failed", err));
+        })
+        .then((result) => {
+          if (result.data.ok) {
+            this.showDialog("Successful", result.data.msge);
+            this.accountCreated = true;
+          } else {
+            this.showDialog("Unsuccessful", result.data.msge);
+          }
+        })
+        .catch((err) => this.showDialog("Error", err));
     },
 
     // Helper method to display the dialog box with the appropriate content.
-    showDialog: function (header, text) {
+    showDialog: function(header, text) {
       this.dialogHeader = header;
       this.dialogText = text;
       this.dialogVisible = true;
     },
-    hideDialog: function () {
+    hideDialog: function() {
       this.dialogVisible = false;
       if (this.accountCreated) {
         this.$router.push({ name: "home" });
       }
-    }
+    },
   },
 };
-
 </script>

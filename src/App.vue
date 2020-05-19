@@ -8,8 +8,8 @@
     </v-content>
     <v-footer class="pa-3">
       <v-layout justify-center class="font-weight-thin">
-        &copy; {{ new Date().getFullYear() }} EZ-Ride,
-        LLC&mdash;A Family Company
+        &copy; {{ new Date().getFullYear() }} EZ-Ride, LLC&mdash;A Family
+        Company
       </v-layout>
     </v-footer>
   </v-app>
